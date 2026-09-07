@@ -1,4 +1,5 @@
 prog # ne pas envoyer le fichier binaire compilé
+subnetcalc
 
 # Prerequisites
 *.d
