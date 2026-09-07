@@ -1,3 +1,5 @@
+prog # ne pas envoyer le fichier binaire compilé
+
 # Prerequisites
 *.d
 
