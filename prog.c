@@ -21,16 +21,16 @@ int parser_cidr(const char *entree, uint32_t *ip, int *prefixe)
         return 0;
     }
 
-   
+  
     if (a > 255 || b > 255 || c > 255 || d > 255 || p > 32) {
         return 0;
     }
 
     
     *ip = ((uint32_t)a << 24)
-        | ((uint32_t)b << 16)
-        | ((uint32_t)c <<  8)
-        |  (uint32_t)d;
+        + ((uint32_t)b << 16)
+        + ((uint32_t)c <<  8)
+        +  (uint32_t)d;
 
     *prefixe = (int)p;
     return 1;
@@ -63,11 +63,16 @@ int main(int argc, char *argv[])
     }
 
     uint32_t masque = masque_depuis_prefixe(prefixe);
-    uint32_t reseau = ip & masque;   /* le fameux ET logique */
+    uint32_t reseau = ip & masque;  
+    uint32_t broadcast = reseau | ~masque; 
+    char classe = (prefixe <= 8) ? 'A' : (prefixe <= 16) ? 'B' : 'C';
 
-    printf("Adresse saisie : ");  afficher_ip(ip);      printf("/%d\n", prefixe);
-    printf("Masque         : ");  afficher_ip(masque);  printf("\n");
-    printf("Adresse reseau : ");  afficher_ip(reseau);  printf("\n");
+    printf("Adresse saisie    : ");  afficher_ip(ip);      printf("/%d\n", prefixe);
+    printf("Classe            : %c\n", classe);
+    printf("Masque            : ");  afficher_ip(masque);  printf("\n");
+    printf("Adresse reseau    : ");  afficher_ip(reseau);  printf("\n");
+    printf("Adresse broadcast : ");  afficher_ip(broadcast);  printf("\n");
+
 
     return 0;
 }
